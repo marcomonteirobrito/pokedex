@@ -1,14 +1,34 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { PokemonsContextProps, PokemonsProviderProps } from "./types";
+import { getPokemonList } from "@/services/pokemons";
 
 const PokemonsContext = createContext<PokemonsContextProps>({
   pokemons: [],
 });
 
-export const PokemonsProvider: React.FC<PokemonsProviderProps> = ({
-  children,
-}) => {
-  const [pokemons, setPokemons] = useState<string[]>([]);
+export const PokemonsProvider = ({ children }: PokemonsProviderProps) => {
+  const [pokemons, setPokemons] = useState([]);
+  const [apiParams, setApiParams] = useState({
+    search: "",
+    currentPage: 1,
+  });
+
+  console.log("list", pokemons);
+
+  useEffect(() => {
+    const fetchPokemons = async () => {
+      const limit = 10;
+      const offset = (apiParams.currentPage - 1) * limit;
+      const params =
+        apiParams === "" ? `offset=${offset}&limit=${limit}` : apiParams.search;
+      const data = await getPokemonList(params);
+      if (data) {
+        setPokemons(data);
+      }
+    };
+
+    fetchPokemons();
+  }, []);
 
   return (
     <PokemonsContext.Provider value={{ pokemons }}>
