@@ -4,7 +4,7 @@ import {
   PokemonsContextProps,
   PokemonsProviderProps,
 } from "./types";
-import { getPokemonList } from "@/services/pokemons";
+import { getPokemonInfo, getPokemonList } from "@/services/pokemons";
 import { ResponseProps, ResultProps } from "@/services/pokemons/types";
 
 const PokemonsContext = createContext<PokemonsContextProps>({
@@ -39,8 +39,6 @@ export const PokemonsProvider = ({ children }: PokemonsProviderProps) => {
     setApiParams((state) => ({ ...state, ...updateProps }));
   };
 
-  const getPokemonInfo = (url: ResultProps["url"]) => {};
-
   const fetchPokemons = async () => {
     const limit = 10;
     const offset = (apiParams.currentPage - 1) * limit;
@@ -49,8 +47,16 @@ export const PokemonsProvider = ({ children }: PokemonsProviderProps) => {
         ? `?offset=${offset}&limit=${limit}`
         : apiParams.search;
     const data = await getPokemonList(params);
-    if (data) {
-      setPokemons(data);
+
+    if (data && data.results) {
+      const pokemonInfo = await Promise.all(
+        data.results.map(async (pokemon: ResultProps) => {
+          const info = await getPokemonInfo(pokemon.url);
+          return { ...pokemon, ...info };
+        })
+      );
+
+      setPokemons({ ...data, results: pokemonInfo });
     }
   };
 
