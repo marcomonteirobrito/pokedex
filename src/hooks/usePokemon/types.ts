@@ -1,7 +1,16 @@
-export interface PokemonsContextProps {
-    pokemons: string[];
-}
+import { ResponseProps } from "@/services/pokemons/types";
 
-export interface PokemonsProviderProps {
-    children: React.ReactNode;
-}
+export type ApiParamsProps = {
+  search: string;
+  currentPage: number;
+};
+
+export type PokemonsContextProps = {
+  pokemons?: ResponseProps;
+  apiParams: ApiParamsProps;
+  updateApiParams: (params: Partial<ApiParamsProps>) => void;
+};
+
+export type PokemonsProviderProps = {
+  children: React.ReactNode;
+};

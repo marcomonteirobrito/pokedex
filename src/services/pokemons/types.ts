@@ -1,4 +1,4 @@
-type ResultProps = {
+export type ResultProps = {
   name: string;
   url: string;
 };

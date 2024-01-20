@@ -1,37 +1,65 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { PokemonsContextProps, PokemonsProviderProps } from "./types";
+import {
+  ApiParamsProps,
+  PokemonsContextProps,
+  PokemonsProviderProps,
+} from "./types";
 import { getPokemonList } from "@/services/pokemons";
+import { ResponseProps, ResultProps } from "@/services/pokemons/types";
 
 const PokemonsContext = createContext<PokemonsContextProps>({
-  pokemons: [],
+  pokemons: {
+    count: 0,
+    next: "",
+    previous: "",
+    results: [
+      {
+        name: "",
+        url: "",
+      },
+    ],
+  },
+  apiParams: {
+    search: "",
+    currentPage: 1,
+  },
+  updateApiParams: () => {},
 });
 
 export const PokemonsProvider = ({ children }: PokemonsProviderProps) => {
-  const [pokemons, setPokemons] = useState([]);
+  const [pokemons, setPokemons] = useState<ResponseProps>();
   const [apiParams, setApiParams] = useState({
     search: "",
     currentPage: 1,
   });
 
-  console.log("list", pokemons);
+  console.log("poke", pokemons);
+
+  const updateApiParams = (updateProps: Partial<ApiParamsProps>) => {
+    setApiParams((state) => ({ ...state, ...updateProps }));
+  };
+
+  const getPokemonInfo = (url: ResultProps["url"]) => {};
+
+  const fetchPokemons = async () => {
+    const limit = 10;
+    const offset = (apiParams.currentPage - 1) * limit;
+    const params =
+      apiParams.search === ""
+        ? `?offset=${offset}&limit=${limit}`
+        : apiParams.search;
+    const data = await getPokemonList(params);
+    if (data) {
+      setPokemons(data);
+    }
+  };
 
   useEffect(() => {
-    const fetchPokemons = async () => {
-      const limit = 10;
-      const offset = (apiParams.currentPage - 1) * limit;
-      const params =
-        apiParams === "" ? `offset=${offset}&limit=${limit}` : apiParams.search;
-      const data = await getPokemonList(params);
-      if (data) {
-        setPokemons(data);
-      }
-    };
-
     fetchPokemons();
-  }, []);
+  }, [apiParams]);
 
   return (
-    <PokemonsContext.Provider value={{ pokemons }}>
+    <PokemonsContext.Provider value={{ pokemons, apiParams, updateApiParams }}>
       {children}
     </PokemonsContext.Provider>
   );
