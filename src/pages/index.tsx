@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import logo from "../assets/logo.png";
 import SearchComponent from "@/components/Search";
-import Container from "@/components/Container";
+import Content from "@/components/Content";
 
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
       </div>
 
       <SearchComponent />
-      <Container />
+      <Content />
     </main>
   );
 }

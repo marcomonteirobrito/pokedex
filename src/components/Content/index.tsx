@@ -1,9 +1,10 @@
 import { Pagination } from "antd";
+import Cards from "../Cards";
 
-const Container = () => {
+const Content = () => {
   return (
     <div className="flex flex-col justify-between h-full">
-      <h1>cards</h1>
+      <Cards />
       <Pagination
         defaultCurrent={1}
         total={50}
@@ -14,4 +15,4 @@ const Container = () => {
   );
 };
 
-export default Container;
+export default Content;
