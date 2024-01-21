@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import SearchComponent from "@/components/Search";
 import Content from "@/components/Content";
 import Pagination from "@/components/Pagination";
