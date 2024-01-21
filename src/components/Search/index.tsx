@@ -8,7 +8,7 @@ const SearchComponent = () => {
   return (
     <Search
       placeholder="Name"
-      className="w-2/3"
+      className="w-9/12"
       onSearch={(search) => updateApiParams({ search })}
     />
   );

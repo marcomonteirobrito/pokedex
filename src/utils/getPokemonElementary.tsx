@@ -7,7 +7,7 @@ export const getPokemonElementary = (types: ResultProps["types"]) => {
     bug: "/assets/elementary/bug.png",
     dark: "/assets/elementary/dark.png",
     dragon: "/assets/elementary/dragon.png",
-    eletric: "/assets/elementary/eletric.png",
+    electric: "/assets/elementary/electric.png",
     fairy: "/assets/elementary/fairy.png",
     fighting: "/assets/elementary/fighting.png",
     fire: "/assets/elementary/fire.png",

@@ -33,8 +33,6 @@ export const PokemonsProvider = ({ children }: PokemonsProviderProps) => {
     currentPage: 1,
   });
 
-  console.log("poke", pokemons);
-
   const updateApiParams = (updateProps: Partial<ApiParamsProps>) => {
     setApiParams((state) => ({ ...state, ...updateProps }));
   };

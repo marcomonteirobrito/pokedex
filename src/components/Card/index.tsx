@@ -7,22 +7,21 @@ const Card = (pokemon: ResultProps) => {
   const elementaryIcons = getPokemonElementary(pokemon.types);
 
   return (
-    <div
-      key={pokemon?.id}
-      className="bg-white rounded-lg h-auto w-44 text-gray-800 p-2"
+    <Link
+      href={`info/${pokemon.id}`}
+      className="bg-white rounded-lg h-auto w-36 text-gray-800 p-2"
+      key={pokemon.id}
     >
-      <div className="flex flex-row justify-between">
-        <div className="flex flex-row justify-between">
-          {elementaryIcons?.map((icon, index) => (
-            <Image
-              src={icon}
-              alt={`${index}`}
-              width={24}
-              height={24}
-              className="mr-2 mb-2"
-            />
-          ))}
-        </div>
+      <div className="flex">
+        {elementaryIcons?.map((icon, index) => (
+          <Image
+            src={icon}
+            alt={`${index}`}
+            width={24}
+            height={24}
+            className="mr-2 mb-2"
+          />
+        ))}
       </div>
 
       <div>
@@ -38,13 +37,18 @@ const Card = (pokemon: ResultProps) => {
         />
       </div>
 
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-2">
         <strong>{pokemon?.name}</strong>
-        <Link href={`info/${pokemon.id}`} className="text-blue-600">
-          Ver detalhes
+        <Link href={`info/${pokemon.id}`} className="">
+          <Image
+            src={"/assets/pokeball.png"}
+            alt={"pokeball"}
+            width={32}
+            height={24}
+          />
         </Link>
       </div>
-    </div>
+    </Link>
   );
 };
 
