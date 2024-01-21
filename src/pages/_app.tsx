@@ -9,10 +9,12 @@ export default function App({ Component, pageProps }: AppProps) {
       <Image
         src="/assets/logo.png"
         alt="logo"
-        width={100}
+        width={390}
         height={100}
-        className="w-full"
+        className="flex items-center"
+        layout="responsive"
       />
+
       <Component {...pageProps} />
     </PokemonsProvider>
   );
