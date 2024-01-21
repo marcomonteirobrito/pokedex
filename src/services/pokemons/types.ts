@@ -6,7 +6,7 @@ type TypeProps = {
 
 type SpritesProps = {
   other: {
-    official_artwork: {
+    "official-artwork": {
       front_default: string;
     };
   };

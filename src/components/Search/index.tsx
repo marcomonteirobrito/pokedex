@@ -3,10 +3,11 @@ import { Input } from "antd";
 
 const SearchComponent = () => {
   const { updateApiParams } = usePokemons();
+  const { Search } = Input;
 
   return (
-    <Input.Search
-      placeholder="Pokemon name"
+    <Search
+      placeholder="Name"
       className="w-2/3"
       onSearch={(search) => updateApiParams({ search })}
     />
