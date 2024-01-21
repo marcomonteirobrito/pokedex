@@ -1,26 +1,19 @@
 import { useRouter } from "next/router";
-import { Card } from "antd";
 import { usePokemons } from "@/hooks/usePokemon";
+import { useEffect } from "react";
+import Details from "@/components/Details";
 
 const Info = () => {
   const { query } = useRouter();
-  const { pokemons } = usePokemons();
+  const { updateApiParams } = usePokemons();
 
-  return (
-    <Card
-      hoverable
-      cover={
-        <img
-          alt="example"
-          src={
-            pokemons?.results[0]?.sprites?.other["official-artwork"]
-              .front_default
-          }
-        />
-      }
-      className="bg-bug"
-    ></Card>
-  );
+  useEffect(() => {
+    if (query.id) {
+      updateApiParams({ search: `${query.id}` });
+    }
+  }, [query]);
+
+  return <Details />;
 };
 
 export default Info;

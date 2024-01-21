@@ -17,6 +17,7 @@ export type ResultProps = {
   id?: number;
   types?: TypeProps[];
   sprites?: SpritesProps;
+  base_experience: number;
 };
 
 export type ResponseProps = {
