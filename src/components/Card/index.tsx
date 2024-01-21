@@ -2,6 +2,7 @@ import { ResultProps } from "@/services/pokemons/types";
 import { getPokemonElementary } from "@/utils/getPokemonElementary";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 const Card = (pokemon: ResultProps) => {
   const elementaryIcons = getPokemonElementary(pokemon.types);
@@ -9,11 +10,11 @@ const Card = (pokemon: ResultProps) => {
   return (
     <Link
       href={`info/${pokemon.id}`}
-      className="bg-white rounded-lg h-auto w-36 text-gray-800 p-2"
+      className="bg-white rounded-lg text-gray-800 p-2"
       key={pokemon.id}
     >
       <div className="flex">
-        {elementaryIcons?.map((icon, index) => (
+        {elementaryIcons?.elementary.map((icon, index) => (
           <Image
             src={icon}
             alt={`${index}`}
@@ -24,18 +25,16 @@ const Card = (pokemon: ResultProps) => {
         ))}
       </div>
 
-      <div>
-        <Image
-          src={
-            pokemon.sprites?.other["official-artwork"].front_default ||
-            "/assets.notFound.png"
-          }
-          alt="not-found"
-          width={44}
-          height={44}
-          layout="responsive"
-        />
-      </div>
+      <Image
+        src={
+          pokemon.sprites?.other["official-artwork"].front_default ||
+          "/assets.notFound.png"
+        }
+        alt="not-found"
+        width={44}
+        height={44}
+        className="w-44 h-44"
+      />
 
       <div className="flex flex-col items-center justify-center gap-2">
         <strong>{pokemon?.name}</strong>
