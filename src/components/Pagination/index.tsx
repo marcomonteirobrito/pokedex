@@ -1,17 +1,20 @@
-import { Pagination as PaginationComponent } from "antd";
+import { Pagination as PaginationComponent, PaginationProps } from "antd";
 import { usePokemons } from "@/hooks/usePokemon";
+import { useState } from "react";
 
 const Pagination = () => {
-  const { updateApiParams, pokemons } = usePokemons();
+  const { updateApiParams, pokemons, apiParams } = usePokemons();
+
   return (
     <PaginationComponent
       defaultCurrent={1}
+      current={apiParams.currentPage}
       total={pokemons?.count}
-      pageSizeOptions={[10, 15]}
       onChange={(currentPage) => updateApiParams({ currentPage })}
-      className="bg-white flex w-11/12 rounded-lg"
+      responsive
+      showSizeChanger={false}
     />
   );
 };
 
-export default Pagination;
+export { Pagination };

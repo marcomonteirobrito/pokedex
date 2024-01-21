@@ -24,7 +24,7 @@ const Details = () => {
         alt="painel"
         className="rounded-lg"
       />
-      <Card title={name} className="bg-gray-300 border-none">
+      <Card className="bg-blue-100 border-none flex items-center">
         <img src={officialImage} alt="pokemon" />
 
         <div className="grid grid-cols-2">
@@ -63,4 +63,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export { Details };

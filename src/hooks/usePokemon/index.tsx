@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { message } from "antd";
 import {
   ApiParamsProps,
   PokemonsContextProps,
@@ -16,6 +17,7 @@ const PokemonsContext = createContext<PokemonsContextProps>({
       {
         name: "",
         url: "",
+        base_experience: 0,
       },
     ],
   },
@@ -23,6 +25,7 @@ const PokemonsContext = createContext<PokemonsContextProps>({
     search: "",
     currentPage: 1,
   },
+  contextHolder: () => {},
   updateApiParams: () => {},
 });
 
@@ -32,9 +35,31 @@ export const PokemonsProvider = ({ children }: PokemonsProviderProps) => {
     search: "",
     currentPage: 1,
   });
+  const [messageApi, contextHolder] = message.useMessage();
 
   const updateApiParams = (updateProps: Partial<ApiParamsProps>) => {
     setApiParams((state) => ({ ...state, ...updateProps }));
+  };
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "This is a success message",
+    });
+  };
+
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "This is an error message",
+    });
+  };
+
+  const warning = () => {
+    messageApi.open({
+      type: "warning",
+      content: "This is a warning message",
+    });
   };
 
   const fetchPokemons = async () => {
@@ -63,7 +88,9 @@ export const PokemonsProvider = ({ children }: PokemonsProviderProps) => {
   }, [apiParams]);
 
   return (
-    <PokemonsContext.Provider value={{ pokemons, apiParams, updateApiParams }}>
+    <PokemonsContext.Provider
+      value={{ pokemons, apiParams, updateApiParams, contextHolder }}
+    >
       {children}
     </PokemonsContext.Provider>
   );

@@ -9,6 +9,7 @@ export type PokemonsContextProps = {
   pokemons?: ResponseProps;
   apiParams: ApiParamsProps;
   updateApiParams: (params: Partial<ApiParamsProps>) => void;
+  contextHolder: any;
 };
 
 export type PokemonsProviderProps = {

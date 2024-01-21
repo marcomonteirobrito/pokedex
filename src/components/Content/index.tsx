@@ -1,4 +1,5 @@
-import Card from "../Card";
+import { Card } from "antd";
+import { PokemonCard } from "../PokemonCard";
 import { usePokemons } from "@/hooks/usePokemon";
 
 const Content = () => {
@@ -7,10 +8,10 @@ const Content = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {pokemons?.results.map((pokemon) => (
-        <Card {...pokemon} key={pokemon.id} />
+        <PokemonCard {...pokemon} key={pokemon.id} />
       ))}
     </div>
   );
 };
 
-export default Content;
+export { Content };

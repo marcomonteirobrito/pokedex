@@ -2,7 +2,7 @@ import { ResultProps } from "@/services/pokemons/types";
 import { getPokemonElementary } from "@/utils/getPokemonElementary";
 import Link from "next/link";
 
-const Card = (pokemon: ResultProps) => {
+const PokemonCard = (pokemon: ResultProps) => {
   const elementaryIcons = getPokemonElementary(pokemon.types);
 
   const backgroundImage = elementaryIcons?.painel[0]
@@ -27,11 +27,11 @@ const Card = (pokemon: ResultProps) => {
         className="w-44 h-44"
       />
 
-      <div className="flex flex-col items-center justify-center gap-2">
+      <div className="flex flex-col items-center justify-center gap-2 text-orange-500">
         <strong>{pokemon?.name}</strong>
       </div>
     </Link>
   );
 };
 
-export default Card;
+export { PokemonCard };
