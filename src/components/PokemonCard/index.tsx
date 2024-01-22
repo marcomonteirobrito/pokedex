@@ -11,7 +11,7 @@ const PokemonCard = (pokemon: ResultProps) => {
 
   return (
     <Link
-      href={`/info/?search=${pokemon.id}`}
+      href={`/details/?search=${pokemon.id}`}
       className="rounded-lg text-gray-800 p-2"
       style={{ backgroundImage }}
     >
@@ -27,9 +27,9 @@ const PokemonCard = (pokemon: ResultProps) => {
         className="w-44 h-44"
       />
 
-      <div className="flex flex-col items-center justify-center gap-2 text-orange-500">
-        <strong>{pokemon?.name}</strong>
-      </div>
+      <strong className="flex items-center justify-center gap-2 text-yellow-300">
+        {pokemon?.name}
+      </strong>
     </Link>
   );
 };

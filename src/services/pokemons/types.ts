@@ -20,10 +20,10 @@ export type ApiProps = {
 export type ResultProps = {
   name: string;
   url: string;
-  id: number;
-  types: TypeProps[];
-  sprites: SpritesProps;
-  base_experience: number;
+  id?: number;
+  types?: TypeProps[];
+  sprites?: SpritesProps;
+  base_experience?: number;
 };
 
 export type ResponseProps = {

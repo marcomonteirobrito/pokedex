@@ -1,4 +1,3 @@
-import { formatResponse, formatResults } from "@/utils/formatResponse";
 import api from "../api";
 import { ApiProps, ResponseProps, ResultProps } from "./types";
 
