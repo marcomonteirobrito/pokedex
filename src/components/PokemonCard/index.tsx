@@ -11,7 +11,7 @@ const PokemonCard = (pokemon: ResultProps) => {
 
   return (
     <Link
-      href={`info/${pokemon.id}`}
+      href={`/info/?search=${pokemon.id}`}
       className="rounded-lg text-gray-800 p-2"
       style={{ backgroundImage }}
     >

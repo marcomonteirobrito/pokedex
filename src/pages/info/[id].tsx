@@ -1,17 +1,17 @@
 import { useRouter } from "next/router";
-import { usePokemons } from "@/hooks/usePokemon";
 import { useEffect } from "react";
 import { Details } from "@/components/Details";
 
 const Info = () => {
-  const { query } = useRouter();
-  const { updateApiParams } = usePokemons();
+  const router = useRouter();
+  const id = router.query.search;
+  console.log("id", id);
 
   useEffect(() => {
-    if (query.id) {
-      updateApiParams({ search: `${query.id}` });
+    if (id) {
+      ({ search: `${id}` });
     }
-  }, [query]);
+  }, [router.query]);
 
   return <Details />;
 };

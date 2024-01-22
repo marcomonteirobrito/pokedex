@@ -3,7 +3,7 @@ import { Content } from "@/components/Content";
 import { Pagination } from "@/components/Pagination";
 import { usePokemons } from "@/hooks/usePokemon";
 
-export default function Home() {
+const Home = () => {
   const { contextHolder } = usePokemons();
 
   return (
@@ -14,4 +14,6 @@ export default function Home() {
       <Pagination />
     </main>
   );
-}
+};
+
+export default Home;

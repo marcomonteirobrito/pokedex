@@ -1,15 +1,16 @@
 import { usePokemons } from "@/hooks/usePokemon";
 import { Input } from "antd";
+import { useRouter } from "next/router";
 
 const SearchComponent = () => {
-  const { updateApiParams } = usePokemons();
+  const router = useRouter();
   const { Search } = Input;
 
   return (
     <Search
       placeholder="Name"
       className="w-9/12 md:w-1/2 2xl:w-1/3"
-      onSearch={(search) => updateApiParams({ search })}
+      onSearch={(search) => router.push(`/?search=${search}`)}
     />
   );
 };

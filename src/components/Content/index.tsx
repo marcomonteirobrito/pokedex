@@ -1,4 +1,3 @@
-import { Card } from "antd";
 import { PokemonCard } from "../PokemonCard";
 import { usePokemons } from "@/hooks/usePokemon";
 

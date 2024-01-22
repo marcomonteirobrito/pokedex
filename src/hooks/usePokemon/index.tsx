@@ -1,10 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { message } from "antd";
-import {
-  ApiParamsProps,
-  PokemonsContextProps,
-  PokemonsProviderProps,
-} from "./types";
+import { PokemonsContextProps, PokemonsProviderProps } from "./types";
 import { getPokemonInfo, getPokemonList } from "@/services/pokemons";
 import { ResponseProps, ResultProps } from "@/services/pokemons/types";
 import { useRouter } from "next/router";
@@ -21,11 +17,7 @@ const PokemonsContext = createContext<PokemonsContextProps>({
       },
     ],
   },
-  apiParams: {
-    search: "",
-  },
   contextHolder: () => {},
-  updateApiParams: () => {},
   fetchPokemons: () => {},
   currentPage: 1,
 });
@@ -33,73 +25,43 @@ const PokemonsContext = createContext<PokemonsContextProps>({
 export const PokemonsProvider = ({ children }: PokemonsProviderProps) => {
   const router = useRouter();
   const [pokemons, setPokemons] = useState<ResponseProps>();
-  const [apiParams, setApiParams] = useState({
-    search: "",
-  });
   const [messageApi, contextHolder] = message.useMessage();
   const currentPage = parseInt(router.query.page as string) || 1;
-
-  const updateApiParams = (updateProps: Partial<ApiParamsProps>) => {
-    setApiParams((state) => ({ ...state, ...updateProps }));
-  };
-
-  const success = () => {
-    messageApi.open({
-      type: "success",
-      content: "This is a success message",
-    });
-  };
+  const { search } = router.query;
 
   const error = () => {
     messageApi.open({
       type: "error",
-      content: "Informe um nome correto",
-    });
-  };
-
-  const warning = () => {
-    messageApi.open({
-      type: "warning",
-      content: "This is a warning message",
+      content: "Nome incorreto",
     });
   };
 
   const fetchPokemons = async () => {
-    const limit = 10;
-    const offset = (currentPage - 1) * limit;
-    const params =
-      apiParams.search === ""
-        ? `?offset=${offset}&limit=${limit}`
-        : apiParams.search;
+    try {
+      const data = await getPokemonList({ params: search, currentPage });
+      if (data && data.results) {
+        const pokemonInfo = await Promise.all(
+          data.results.map(async (pokemon: ResultProps) => {
+            const info = await getPokemonInfo(pokemon.url);
+            return { ...pokemon, ...info };
+          })
+        );
 
-    const data = await getPokemonList(params);
-
-    if (!data) {
+        setPokemons({ ...data, results: pokemonInfo });
+      }
+    } catch {
       error();
-    }
-
-    if (data && data.results) {
-      const pokemonInfo = await Promise.all(
-        data.results.map(async (pokemon: ResultProps) => {
-          const info = await getPokemonInfo(pokemon.url);
-          return { ...pokemon, ...info };
-        })
-      );
-
-      setPokemons({ ...data, results: pokemonInfo });
     }
   };
 
   useEffect(() => {
     fetchPokemons();
-  }, [apiParams, currentPage]);
+  }, [search, currentPage]);
 
   return (
     <PokemonsContext.Provider
       value={{
         pokemons,
-        apiParams,
-        updateApiParams,
         contextHolder,
         fetchPokemons,
         currentPage,
