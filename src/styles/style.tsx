@@ -12,7 +12,6 @@ const StyleConfig = ({ children }: StylePaginationConfig) => {
             colorIconHover: "#FFFFFF",
             itemLinkBg: "#FFFFFF",
           },
-
           Button: {
             colorTextLightSolid: "#FFA94D",
           },
