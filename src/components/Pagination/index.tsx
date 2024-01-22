@@ -1,16 +1,20 @@
 import { Pagination as PaginationComponent, PaginationProps } from "antd";
 import { usePokemons } from "@/hooks/usePokemon";
-import { useState } from "react";
+import { useRouter } from "next/router";
 
 const Pagination = () => {
-  const { updateApiParams, pokemons, apiParams } = usePokemons();
+  const router = useRouter();
+  const { pokemons, currentPage } = usePokemons();
+
+  const handlePageChange = (page: number) => {
+    router.push(`?page=${page}`);
+  };
 
   return (
     <PaginationComponent
-      defaultCurrent={1}
-      current={apiParams.currentPage}
-      total={pokemons?.count}
-      onChange={(currentPage) => updateApiParams({ currentPage })}
+      current={currentPage}
+      total={pokemons?.count || 0}
+      onChange={handlePageChange}
       responsive
       showSizeChanger={false}
     />

@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <PokemonsProvider>
       <StyleConfig>
         <main className="flex flex-col items-center">
-          <Link href={"/"}>
+          <Link href={"/?page=1"}>
             <img src="/assets/logo.png" alt="logo" className="max-w-56" />
           </Link>
 

@@ -2,7 +2,6 @@ import { ResponseProps } from "@/services/pokemons/types";
 
 export type ApiParamsProps = {
   search: string;
-  currentPage: number;
 };
 
 export type PokemonsContextProps = {
@@ -10,6 +9,8 @@ export type PokemonsContextProps = {
   apiParams: ApiParamsProps;
   updateApiParams: (params: Partial<ApiParamsProps>) => void;
   contextHolder: any;
+  fetchPokemons: () => void;
+  currentPage: number;
 };
 
 export type PokemonsProviderProps = {

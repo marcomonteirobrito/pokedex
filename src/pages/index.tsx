@@ -5,6 +5,7 @@ import { usePokemons } from "@/hooks/usePokemon";
 
 export default function Home() {
   const { contextHolder } = usePokemons();
+
   return (
     <main className="flex flex-col w-full items-center gap-6">
       {contextHolder}

@@ -1,9 +1,10 @@
 import { Card } from "antd";
 import { usePokemons } from "@/hooks/usePokemon";
 import { getPokemonElementary } from "@/utils/getPokemonElementary";
+import Link from "next/link";
 
 const Details = () => {
-  const { pokemons } = usePokemons();
+  const { pokemons, currentPage } = usePokemons();
   const elementaryIcons = getPokemonElementary(pokemons?.results?.[0].types);
   const pokemonInfo = pokemons?.results?.[0];
   const pokemonType = pokemonInfo?.types;
@@ -12,20 +13,26 @@ const Details = () => {
     return <p>Loading...</p>;
   }
 
-  const { name, sprites, types, base_experience } = pokemonInfo;
+  const { sprites, base_experience } = pokemonInfo;
   const officialImage = sprites?.other["official-artwork"].front_default;
-
-  console.log("pokemons", pokemonInfo);
 
   return (
     <div className="grid gap-6 p-4 rounded-lg">
+      <Link
+        href={`/?page=${currentPage}`}
+        className="rounded-full bg-white w-12 h-12 flex items-center justify-center"
+      >
+        <span className="material-symbols-outlined text-black">arrow_back</span>
+      </Link>
+
       <img
         src={elementaryIcons?.painel[0]}
         alt="painel"
-        className="rounded-lg"
+        className="rounded-lg max-h-56 w-full"
       />
-      <Card className="bg-blue-100 border-none flex items-center">
-        <img src={officialImage} alt="pokemon" />
+      <Card className="bg-blue-100 border-none">
+        <img src="/assets/pokeball.png" className="w-12 h-12" />
+        <img src={officialImage} alt="pokemon" className="flex w-1/2  m-auto" />
 
         <div className="grid grid-cols-2">
           <div>
